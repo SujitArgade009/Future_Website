@@ -4,7 +4,8 @@ import image1 from '../../assets/image1.png';
 import image2 from '../../assets/image2.png';
 import image3 from '../../assets/image3.png';
 
-export default function Header({ playStatus, heroCount }) {
+// eslint-disable-next-line react/prop-types
+export default function Header({playStatus, heroCount}) {
   if (playStatus) {
     return (
       <video className="background" autoPlay loop muted>
