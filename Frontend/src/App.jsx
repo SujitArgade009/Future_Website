@@ -3,6 +3,7 @@ import './App.css';
 import Footer from './components/Footer/Footer.jsx';
 import Header from './components/Header/Header.jsx';
 import Content from "./components/Contain/Content.jsx";
+import axios from 'axios';
 
 function App() {
   let heroData=[
@@ -12,6 +13,22 @@ function App() {
   ]
   const [heroCount, setHeroCount]=useState(2);
   const [playStatus, setPlayStatus]=useState(false);
+  const [data, setdata]=useState(null);
+
+  async function fetchData(){
+    try{
+      const response=await axios.get("http://localhost:5000/api/cars");
+      const jsonData=await response.json();
+      console.log(response);
+      setdata(jsonData);
+    }catch(err){
+      console.log("ERROR in Fetching the data"+ err);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+}, []);
 
   useEffect(()=>{
     setInterval(() => {
@@ -31,6 +48,9 @@ function App() {
       setPlayStatus={setPlayStatus}
       heroData={heroData[heroCount]}
       />
+      <div>
+        {data ? <p>{data.message}</p>:<p>Loading...</p>}
+      </div>
     </div>
   );
 }
